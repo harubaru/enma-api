@@ -1,0 +1,15 @@
+FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+ENV GATEWAY_PORT=8000
+
+EXPOSE ${GATEWAY_PORT}
+
+ADD . /root
+
+RUN apt update && apt upgrade -y && \
+    apt update && apt install -y python3 python3-pip
+
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir -r /root/requirements/gateway.txt
+
+CMD ["/usr/bin/python3", "/root/gateway.py"]

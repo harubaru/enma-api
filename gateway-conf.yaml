@@ -1,0 +1,6 @@
+---
+models:
+  distilgpt2:
+    author: huggingface
+    description: DistilGPT2
+    url: http://0.0.0.0:8080/completion
