@@ -47,6 +47,10 @@ async def completion(completion: Completion):
         async with session.post(engine_endpoint, json=completion.dict()) as resp:
             return await resp.json()
 
+@app.get("/")
+async def root():
+    return "Sometimes I dream about cheese."
+
 if __name__ == "__main__":
     uvicorn.run(
         "gateway:app",
