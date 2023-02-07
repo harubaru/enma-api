@@ -23,3 +23,8 @@ class Completion(BaseModel):
     num_return_sequences: Optional[int] = 1
     stop_sequence: Optional[str] = None
     bad_words: Optional[list] = None
+
+class Feedback(BaseModel):
+    prompt: str
+    chosen: str
+    rejected: str

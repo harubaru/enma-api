@@ -2,11 +2,12 @@ import os
 import uvicorn
 import yaml
 import aiohttp
+import json
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from models import Completion
+from models import Completion, Feedback
 
 app = FastAPI(
     title="Enma API Gateway"
@@ -21,7 +22,7 @@ app.add_middleware(
 
 args = {
     "config": os.getenv("GATEWAY_CONF", "gateway-conf.yaml"),
-    "port": int(os.getenv("GATEWAY_PORT", 9000))
+    "port": int(os.getenv("GATEWAY_PORT", 80))
 }
 
 with open(args["config"], "r") as f:
@@ -46,6 +47,12 @@ async def completion(completion: Completion):
     async with aiohttp.ClientSession() as session:
         async with session.post(engine_endpoint, json=completion.dict()) as resp:
             return await resp.json()
+
+@app.post("/feedback")
+async def feedback(f_: Feedback):
+    with open('feedback.jsonl', 'a') as f:
+        f.write(f'{f_.json()}\n')
+    return "OK"
 
 @app.get("/")
 async def root():
