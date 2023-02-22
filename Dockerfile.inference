@@ -7,6 +7,6 @@ WORKDIR /root
 RUN apt update && apt upgrade -y && \
     apt update && apt install -y python3 python3-pip && \
     pip3 install --no-cache-dir --upgrade pip && \
-    pip3 install --no-cache-dir -r requirements/inference.txt
+    pip3 install --no-cache-dir -r /root/requirements/inference.txt
 
 CMD ["python3", "/root/inference.py"]
