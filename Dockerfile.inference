@@ -1,7 +1,7 @@
 ARG CUDA_RELEASE=11.6.2-cudnn8-devel-ubuntu20.04
 FROM nvidia/cuda:${CUDA_RELEASE} AS base
 ENV DEBIAN_FRONTEND=noninteractive
-ADD * /root/
+ADD . /root
 WORKDIR /root
 
 RUN apt update && apt upgrade -y && \
